@@ -1,16 +1,16 @@
 const fs = require('fs');
 const chalk = require('chalk');
 
-const getNote = () => {
-
-};
-
 const addNote = (title, body) => {
     const notes = loadNotes();
 
-    const duplicates = notes.filter(note => note.title === title);
+    // Will run trough the whole array
+    // const duplicates = notes.filter(note => note.title === title);
 
-    if (duplicates.length === 0) {
+    // Will stop on the first match (if any)
+    const duplicate = notes.find(note => note.title === title);
+
+    if (!duplicate) {
         notes.push({title, body});
         saveNotes(notes);
         console.log(chalk`{green.inverse New note added!}`);
@@ -28,7 +28,7 @@ const removeNote = (title) => {
         saveNotes(filteredNotes);
         console.log(chalk`{green.inverse Note deleted!}`);
     } else {
-        console.log(chalk`{yellow.inverse Title not found!}`);
+        console.log(chalk`{yellow.inverse Note not found!}`);
     }
 }
 
@@ -41,6 +41,19 @@ const listNotes = () => {
         console.log(chalk`{blue ${index + 1}. ${note.title}}`);
     });
 };
+
+const readNote = (title) => {
+    const notes = loadNotes();
+
+    const note = notes.find((note) => note.title === title);
+
+    if (note) {
+        console.log(chalk`{blue.inverse ${note.title}}`);
+        console.log(chalk`{blue ${note.body}}`);
+    } else {
+        console.log(chalk`{yellow.inverse Note not found!}`);
+    }
+}
 
 const saveNotes = (notes) => {
     const notesJSON = JSON.stringify(notes);
@@ -60,4 +73,4 @@ const loadNotes = () => {
 }
 
 // JS lets you pass only the value if the key if key has the same name as the varible.
-module.exports = { getNotes, addNote, removeNote, listNotes };
+module.exports = { addNote, removeNote, listNotes, readNote };
