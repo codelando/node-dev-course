@@ -8,10 +8,29 @@ const getNotes = () => {
 const addNote = (title, body) => {
     const notes = loadNotes();
 
-    notes.push({title, body});
+    const duplicates = notes.filter(note => note.title === title);
 
-    saveNotes(notes);
+    if (duplicates.length === 0) {
+        notes.push({title, body});
+        saveNotes(notes);
+        console.log(chalk`{green.inverse New note added!}`);
+    } else {
+        console.log(chalk`{red.inverse Title already exists!}`);
+    }
 };
+
+const removeNote = (title) => {
+    const notes = loadNotes();
+
+    const filteredNotes = notes.filter(note => note.title !== title);
+
+    if (notes.length > filteredNotes.length) {
+        saveNotes(filteredNotes);
+        console.log(chalk`{green.inverse Note deleted!}`);
+    } else {
+        console.log(chalk`{yellow.inverse Title not found!}`);
+    }
+}
 
 const saveNotes = (notes) => {
     const notesJSON = JSON.stringify(notes);
@@ -31,4 +50,4 @@ const loadNotes = () => {
 }
 
 // JS lets you pass only the value if the key if key has the same name as the varible.
-module.exports = { getNotes, addNote };
+module.exports = { getNotes, addNote, removeNote };
