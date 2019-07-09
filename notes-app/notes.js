@@ -1,8 +1,8 @@
 const fs = require('fs');
 const chalk = require('chalk');
 
-const getNotes = () => {
-    return loadNotes();
+const getNote = () => {
+
 };
 
 const addNote = (title, body) => {
@@ -32,6 +32,16 @@ const removeNote = (title) => {
     }
 }
 
+const listNotes = () => {
+    const notes = loadNotes();
+    
+    console.log(chalk`{blue.inverse Your notes:}`);
+
+    notes.forEach((note, index) => {
+        console.log(chalk`{blue ${index + 1}. ${note.title}}`);
+    });
+};
+
 const saveNotes = (notes) => {
     const notesJSON = JSON.stringify(notes);
 
@@ -50,4 +60,4 @@ const loadNotes = () => {
 }
 
 // JS lets you pass only the value if the key if key has the same name as the varible.
-module.exports = { getNotes, addNote, removeNote };
+module.exports = { getNotes, addNote, removeNote, listNotes };
