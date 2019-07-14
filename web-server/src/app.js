@@ -22,13 +22,14 @@ hbs.registerPartials(partialsPath);
 // This will override any matching route after it.
 app.use(express.static(publicDirectoryPath));
 
+
+// Routes get evaluated in order
 app.get('', (req, res) => {
     res.render('index', {
         title: 'Weather',
         name: 'Lando'
     });
 });
-
 
 app.get('/about', (req, res) => {
     res.render('about', {
@@ -52,6 +53,22 @@ app.get('/weather', (req, res) => {
     });
 });
 
+app.get('/help/*', (req, res) => {
+    res.render('404', {
+        title: 'Error',
+        name: 'Lando',
+        message: 'Help article not found.'
+    })
+});
+
+
+app.get('*', (req, res) => {
+    res.render('404', {
+        title: '404',
+        name: 'Lando',
+        message: 'Page not found.'
+    })
+});
 
 app.listen(3000, () => {
     console.log('Server is up on port 3000.');
