@@ -1,7 +1,36 @@
-h1 {
-    color: tomato;
+body { 
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    
+    max-width: 650px;
+    margin: 0 auto;
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-img {
-    border-radius: 50%;
+h1 {
+    font-size: 48px;
+}
+
+header {
+    margin-top: 16px;
+    margin-bottom: 48px;
+}
+
+header nav a {
+    margin-right: 16px;
+    color: #333;
+    text-decoration: none;
+}
+
+main {
+    flex-grow: 1;
+}
+
+footer {
+    color: #888;
+    border-top: 1px solid #eee;
+    margin-top: 16px;
+    padding: 8px 0;
 }
