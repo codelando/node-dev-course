@@ -18,12 +18,14 @@ yargs.command({
         title: {
             describe: 'Note title',
             demandOption: true,
-            type: 'string'
+            type: 'string',
+            alias: 't'
         },
         body: {
             describe: 'Note body',
             demandOption: true,
-            type: 'string'
+            type: 'string',
+            alias: 'b'
         }
     },
     handler(argv) {
